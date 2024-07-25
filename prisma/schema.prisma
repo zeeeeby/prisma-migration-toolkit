@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model users {
+  id               String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at       DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at       DateTime? @db.Timestamptz(6)
+  puid             BigInt
+  app_id           Int       @db.SmallInt
+  appsflyer_id     String
+  country_code     String?
+  debug_mask       Boolean   @default(false)
+  child_birth_date DateTime? @db.Date
+  child_age        Int?      @db.SmallInt
+  child_gender     Int?      @db.SmallInt
+
+  @@unique([puid, app_id], map: "users_puid_app_id_unique")
+}
+
+model devices {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at  DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime? @db.Timestamptz(6)
+  puid        BigInt
+  app_id      Int       @db.SmallInt
+  udid        String
+  active      Boolean   @default(true)
+  device_info Json?
+  language    String?
+  os_type     Int?      @db.SmallInt
+  ip          String?
+
+  @@unique([puid, app_id], map: "devices_puid_app_id_unique")
+}

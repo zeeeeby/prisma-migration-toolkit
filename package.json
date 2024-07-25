@@ -1,0 +1,21 @@
+{
+  "name": "migrations",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "migrate": "sh ./scripts/migrate.sh",
+      "apply-migrations": "sh ./scripts/apply-migrations.sh",
+      "prisma-diff": "sh ./scripts/prisma-diff.sh",
+      "db-push": "prisma db push --skip-generate",
+      "db-pull": "prisma db pull",
+      "dev": "sh scripts/dev-launch.sh",
+      "create_flyway_migration": "sh ./scripts/create_flyway_migration.sh"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "5.15.0",
+    "prisma": "^5.15.0"
+  }
+}
